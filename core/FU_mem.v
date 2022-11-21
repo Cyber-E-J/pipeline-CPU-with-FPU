@@ -18,6 +18,9 @@ module FU_mem(
     reg[2:0] bhw_reg;
     reg[31:0] rs1_data_reg, rs2_data_reg, imm_reg;
 
+
+    wire [31:0] addr;
+    assign addr= rs1_data_reg + imm_reg;
     always@(posedge clk)
     begin
         if( EN & ~state) begin
@@ -34,7 +37,7 @@ module FU_mem(
             state<= 2'b11;
         end
         
-        else begin
+        else if(state == 2'b11) begin
             state <= 2'b00;
         end
         

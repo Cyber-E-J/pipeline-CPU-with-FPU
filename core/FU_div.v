@@ -36,7 +36,7 @@ module FU_div(
     end             //to fill sth.in
 
 
-    divider div(.aclk(clk),
+    div_gen_0 div(.aclk(clk),
         .s_axis_dividend_tvalid(A_valid),
         .s_axis_dividend_tdata(A_reg),
         .s_axis_divisor_tvalid(B_valid), 
@@ -44,6 +44,7 @@ module FU_div(
         .m_axis_dout_tvalid(res_valid), 
         .m_axis_dout_tdata(divres)
     );
+    
 
     assign res = divres[63:32];
 
