@@ -18,7 +18,28 @@ module FU_mem(
     reg[2:0] bhw_reg;
     reg[31:0] rs1_data_reg, rs2_data_reg, imm_reg;
 
-    ...         //to fill sth.in
+    always@(posedge clk)
+    begin
+        if( EN & ~state) begin
+            rs1_data_reg <= rs1_data;
+            rs2_data_reg <= rs2_data;
+            imm_reg <= imm;
+            bhw_reg <= bhw;
+            mem_w_reg <= mem_w;
+            state <= 2'b10;
+        
+        end
+        
+        else if( state == 2'b10 ) begin
+            state<= 2'b11;
+        end
+        
+        else begin
+            state <= 2'b00;
+        end
+        
+    
+    end         //to fill sth.in
 
     RAM_B ram(.clka(clk),.addra(addr),.dina(rs2_data_reg),.wea(mem_w_reg),
         .douta(mem_data),.mem_u_b_h_w(bhw_reg));

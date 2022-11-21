@@ -13,9 +13,41 @@ module FU_mul(
         state = 0;
     end
 
+    wire [63:0] mulres;
     reg[31:0] A_reg, B_reg;
 
-    ...         //to fill sth.in
+    always @(posedge clk)
+    begin
+        if(EN & ~state) begin
+            A_reg <= A;
+            B_reg <= B;
+            state <= 7'b1000000;
+        end
+        else if(state == 7'b1000000) begin
+            state <= 7'b1100000;
+        end
+        else if(state == 7'b1100000) begin
+            state <= 7'b1110000;
+        end
+        else if(state == 7'b1110000) begin
+            state <= 7'b1111000;
+        end
+        else if(state == 7'b1111000) begin
+            state <= 7'b1111100;
+        end
+        else if(state == 7'b1111100) begin
+            state <= 7'b1111110;
+        end
+        else if(state == 7'b1111110) begin
+            state <= 7'b1111111;
+        end        
+        else if(state == 7'b1111111) begin
+            state <= 7'b0000000;
+        end         
+        
+    
+    
+    end         //to fill sth.in
 
     multiplier mul(.CLK(clk),.A(A_reg),.B(B_reg),.P(mulres));
 
